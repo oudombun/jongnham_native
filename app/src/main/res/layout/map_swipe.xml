@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:padding="10dp"
+    android:layout_height="100dp">
+    <ImageView
+        android:src="@drawable/img4"
+        android:id="@+id/map_img"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        android:layout_width="110dp"
+        android:layout_height="80dp"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/map_img"
+        android:id="@+id/title"
+        android:text="Cafe 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_toRightOf="@id/map_img"
+        android:layout_centerVertical="true"
+        android:id="@+id/country"
+        android:text="Cambodia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/map_img"
+        android:layout_alignParentBottom="true"
+        android:text="Open Now"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginRight="30dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:text="1.3 km"
+        android:textSize="11dp"
+        android:textColor="@color/background"
+        android:background="@drawable/outline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:src="@drawable/ic_baseline_assistant_direction_24"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+</RelativeLayout>
