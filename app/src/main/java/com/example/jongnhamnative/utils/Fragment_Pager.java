@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.util;
+package com.example.jongnhamnative.utils;
 
 import android.os.Bundle;
 

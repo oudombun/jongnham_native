@@ -27,12 +27,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
-            android:name=".ui.SearchActivity"
+            android:name=".views.activity.SearchActivity"
             android:theme="@style/NoActionBarStyle" />
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".views.activity.HomeActivity">
 
         </activity>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".views.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.ui.fragment;
+package com.example.jongnhamnative.views.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.jongnhamnative.R;
 
-public class ListRestaurant extends Fragment {
+public class ListRestaurantFragment extends Fragment {
     View view;
 
     @Nullable

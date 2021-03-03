@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.ui;
+package com.example.jongnhamnative.views.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,14 +6,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.jongnhamnative.R;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-import pub.devrel.easypermissions.PermissionRequest;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String[] LOCATION =
@@ -61,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
     private void showSearchBox(){
-        Intent in = new Intent(HomeActivity.this,SearchActivity.class);
+        Intent in = new Intent(HomeActivity.this, SearchActivity.class);
         startActivity(in);
     }
 

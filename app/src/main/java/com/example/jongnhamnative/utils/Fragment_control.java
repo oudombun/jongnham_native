@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.util;
+package com.example.jongnhamnative.utils;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment;
 import com.example.jongnhamnative.R;
 
 public class Fragment_control extends Fragment {
-    String tag = this.getClass().getSimpleName();
+//    String tag = this.getClass().getSimpleName();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /** Getting the arguments to the Bundle object */
-        Bundle data = getArguments();
+//        Bundle data = getArguments();
 
     }
 

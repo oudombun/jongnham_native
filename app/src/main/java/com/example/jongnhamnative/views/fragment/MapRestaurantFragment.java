@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.ui.fragment;
+package com.example.jongnhamnative.views.fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -7,56 +7,52 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.jongnhamnative.R;
-import com.example.jongnhamnative.util.Fragment_Pager;
+import com.example.jongnhamnative.models.Restaurant;
+import com.example.jongnhamnative.utils.Fragment_Pager;
+import com.example.jongnhamnative.viewmodels.RestaurantViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapRestaurant extends Fragment {
+public class MapRestaurantFragment extends Fragment {
     View view;
 
     MapView mMapView;
     private GoogleMap googleMap;
     LocationManager locationManager;
     LocationListener locationListener;
-    List<LatLng> latLngs;
     ViewPager pager;
+
+    RestaurantViewModel viewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.map_restaurant, container, false);
-
-
         mMapView =  view.findViewById(R.id.mapView);
-
-        pager =  view.findViewById(R.id.pager);
-
 
         mMapView.onCreate(savedInstanceState);
 
@@ -78,27 +74,7 @@ public class MapRestaurant extends Fragment {
                 }
                 googleMap.setMyLocationEnabled(true);
 
-                setUpLocation();
-
-                /** Getting fragment manager */
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-
-                /** Instantiating FragmentPagerAdapter */
-                Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
-
-                /** Setting the pagerAdapter to the pager object */
-                pager.setAdapter(pagerAdapter);
-                pagerAdapter.notifyDataSetChanged();
-
-                pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    public void onPageScrollStateChanged(int state) {}
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-                    public void onPageSelected(int position) {
-                        centerMapOnLocation(latLngs.get(position),"Cafe"+(position+1));
-                    }
-                });
-
+                init();
             }
         });
 
@@ -107,19 +83,45 @@ public class MapRestaurant extends Fragment {
         return view;
     }
 
+    private void init() {
+
+        pager =  view.findViewById(R.id.pager);
+        viewModel= ViewModelProviders.of(this).get(RestaurantViewModel.class);
+        viewModel.init();
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
+
+        pager.setAdapter(pagerAdapter);
+        pagerAdapter.notifyDataSetChanged();
+
+        setUpLocation();
+    }
+
 
     private void setUpLocation() {
-        latLngs = new ArrayList<>();
-        latLngs.add(new LatLng(11.551637, 104.936842));
-        latLngs.add(new LatLng(11.574767, 104.916431));
-        latLngs.add(new LatLng(11.566796, 104.923987));
-        latLngs.add(new LatLng(11.549444, 104.939349));
 
-        for (int i = 0;i<latLngs.size();i++){
-            googleMap.addMarker(new MarkerOptions().position(latLngs.get(i)).title("Cafe"+i));
-        }
+        viewModel.getRestaurant().observe(this, new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(List<Restaurant> restaurants) {
+                Log.d("ddusdflkajsdf", "onChanged: "+restaurants);
+                for (int i = 0;i<restaurants.size();i++){
+                    googleMap.addMarker(new MarkerOptions().position(restaurants.get(i).getLatLng()).title(restaurants.get(i).getTitle()));
 
-        centerMapOnLocation(latLngs.get(0), "Location");
+                    pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        public void onPageScrollStateChanged(int state) {}
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+                        public void onPageSelected(int position) {
+                            centerMapOnLocation(restaurants.get(position).getLatLng(),restaurants.get(position).getTitle());
+                        }
+                    });
+
+                }
+                centerMapOnLocation(restaurants.get(0).getLatLng(), restaurants.get(0).getTitle());
+            }
+        });
+
 
 
         // Zoom in on user location

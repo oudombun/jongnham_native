@@ -1,4 +1,4 @@
-package com.example.jongnhamnative.util;
+package com.example.jongnhamnative.views.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jongnhamnative.R;
-import com.example.jongnhamnative.data.Restaurant;
+import com.example.jongnhamnative.models.Restaurant;
 
 import java.util.List;
 
-public class StaticRestaurantProvider extends ArrayAdapter<Restaurant> {
+public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
     private int resourceLayout;
     private Context mContext;
 
-    public StaticRestaurantProvider(Context context, int resource, List<Restaurant> items) {
+    public RestaurantAdapter(Context context, int resource, List<Restaurant> items) {
         super(context, resource, items);
         this.resourceLayout = resource;
         this.mContext = context;
@@ -40,7 +40,7 @@ public class StaticRestaurantProvider extends ArrayAdapter<Restaurant> {
             TextView tt1 = v.findViewById(R.id.title);
             ImageView tt2 = v.findViewById(R.id.imagevi);
             tt1.setText(p.getTitle());
-            tt2.setBackgroundResource(p.getImage());
+            tt2.setImageResource(p.getImage());
         }
 
         return v;

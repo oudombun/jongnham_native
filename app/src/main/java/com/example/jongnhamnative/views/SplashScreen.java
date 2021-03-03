@@ -1,4 +1,4 @@
-package com.example.jongnhamnative;
+package com.example.jongnhamnative.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.jongnhamnative.ui.HomeActivity;
+import com.example.jongnhamnative.R;
+import com.example.jongnhamnative.views.activity.HomeActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

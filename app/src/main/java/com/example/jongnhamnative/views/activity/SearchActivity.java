@@ -1,8 +1,7 @@
-package com.example.jongnhamnative.ui;
+package com.example.jongnhamnative.views.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Color;
@@ -12,13 +11,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.jongnhamnative.R;
-import com.example.jongnhamnative.ui.fragment.ListRestaurant;
-import com.example.jongnhamnative.ui.fragment.ListStaticDataRestaurant;
-import com.example.jongnhamnative.ui.fragment.MapRestaurant;
+import com.example.jongnhamnative.views.fragment.ListRestaurantFragment;
+import com.example.jongnhamnative.views.fragment.ListStaticDataRestaurant;
+import com.example.jongnhamnative.views.fragment.MapRestaurantFragment;
 
 public class SearchActivity extends AppCompatActivity {
     SearchView searchView;
@@ -56,7 +54,7 @@ public class SearchActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.mylayout, new ListStaticDataRestaurant(), "TAG_A");
-        fragmentTransaction.add(R.id.mylayout, new MapRestaurant(), "TAG_B");
+        fragmentTransaction.add(R.id.mylayout, new MapRestaurantFragment(), "TAG_B");
 
         fragmentTransaction.attach(new ListStaticDataRestaurant());
 
@@ -96,19 +94,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void showListResult() {
-        ListStaticDataRestaurant fragA = (ListStaticDataRestaurant) getSupportFragmentManager().findFragmentByTag("TAG_C");
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.detach(getSupportFragmentManager().findFragmentByTag("TAG_B"));
-        fragmentTransaction.detach(getSupportFragmentManager().findFragmentByTag("TAG_A"));
-        fragmentTransaction.attach(fragA);
-        fragmentTransaction.addToBackStack(null);
-
-        fragmentTransaction.commitAllowingStateLoss();
-        getSupportFragmentManager().executePendingTransactions();
-    }
-
-    private void switchToList() {
-        ListRestaurant fragA = (ListRestaurant) getSupportFragmentManager().findFragmentByTag("TAG_A");
+        ListStaticDataRestaurant fragA = (ListStaticDataRestaurant) getSupportFragmentManager().findFragmentByTag("TAG_A");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.detach(getSupportFragmentManager().findFragmentByTag("TAG_B"));
         fragmentTransaction.attach(fragA);
@@ -119,7 +105,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void switchToMap() {
-        MapRestaurant fragB = (MapRestaurant) getSupportFragmentManager().findFragmentByTag("TAG_B");
+        MapRestaurantFragment fragB = (MapRestaurantFragment) getSupportFragmentManager().findFragmentByTag("TAG_B");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.detach(getSupportFragmentManager().findFragmentByTag("TAG_A"));
         fragmentTransaction.attach(fragB);
